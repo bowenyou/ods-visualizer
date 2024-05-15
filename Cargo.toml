@@ -1,0 +1,20 @@
+[package]
+name = "ods-visualizer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.83"
+base64 = "0.22.1"
+celestia-rpc = { git = "https://github.com/eigerco/lumina" }
+celestia-types = { git = "https://github.com/eigerco/lumina" }
+crossterm = "0.27.0"
+futures-util = "0.3.30"
+serde = { version = "1.0.201", features = ["derive"] }
+serde_json = "1.0.117"
+sha3 = "0.10.8"
+tokio = { version = "1.37.0", features = ["full"] }
+tokio-tungstenite = { version = "0.21.0", features = ["native-tls"] }
+toml = "0.8.13"
