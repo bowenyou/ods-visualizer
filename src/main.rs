@@ -1,4 +1,4 @@
-use std::{io::{stdout, Write, Read}, collections::HashMap, fs::File};
+use std::{io::{stdout, Write, Read}, collections::HashMap, fs::File, env};
 
 use base64::{Engine, engine::general_purpose::STANDARD};
 use celestia_rpc::{Client, HeaderClient, ShareClient};
@@ -135,18 +135,30 @@ async fn main() -> anyhow::Result<()>{
     file.read_to_string(&mut contents)?;
 
     let config = toml::from_str::<Config>(&contents)?;
-    
-    tokio::spawn(async move {
-        match receive_eds(&config).await {
-            Err(e) => {
-                println!("websocket error: {:?}", e);
-            },
-            _ => {}
-        }
-    });
-        
-    signal::ctrl_c().await.expect("Failed to listen to ctrl+c signal");
-    println!("received ctrl+c signal, exiting");
 
+    let args = env::args().collect::<Vec<String>>();
+    if args.len() > 1 {
+        let block_height = args[1].parse::<u64>()?;
+        let rpc_client = Client::new(&format!("http://{}", config.url), Some(&config.auth_key)).await?;
+
+        let header = rpc_client.header_get_by_height(block_height).await?;
+        let eds = rpc_client.share_get_eds(&header).await?;
+        let ods = ODS::from_eds(eds, block_height)?;
+        ods.draw_grid();
+    } else {
+        tokio::spawn(async move {
+            match receive_eds(&config).await {
+                Err(e) => {
+                    println!("websocket error: {:?}", e);
+                },
+                _ => {}
+            }
+        });
+        
+        signal::ctrl_c().await.expect("Failed to listen to ctrl+c signal");
+        println!("received ctrl+c signal, exiting");
+    }
+    
+    
     Ok(())
 }
