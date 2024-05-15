@@ -11,7 +11,7 @@ There is also a polling based application CLI tool which can be used to poll a s
 
 ## Demo
 
-![](https://github.com/bowenyou/ods-visualizer/blob/main/assets/demo.mp4)
+![](./assets/demo.gif)
 
 ## Usage
 
