@@ -9,6 +9,10 @@ As such, special namespaces are also reserved accordingly.
 
 There is also a polling based application CLI tool which can be used to poll a specific block height.
 
+## Demo
+
+![](https://github.com/bowenyou/ods-visualizer/blob/main/assets/demo.mp4)
+
 ## Usage
 
 To use the subscription functionality, just run as usual
