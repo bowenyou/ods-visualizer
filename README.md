@@ -17,19 +17,28 @@ https://github.com/bowenyou/ods-visualizer/assets/8888503/055b1dce-6e49-4e6d-8f6
 
 ## Usage
 
+Copy the example_config.toml to config.toml and populate it with a Node API and auth key
+
+```shell
+cp example_config.toml config.toml
+
+# Populate it with a Node API and auth key
+vim config.toml 
+```
+
 To use the subscription functionality, just run as usual
 
 ```
 cargo run --release
 ```
 
-To query a specific block height,
+To query a specific block height
 
 ```
 cargo run --release -- <BLOCK_HEIGHT>
 ```
 
-Make sure that you create a config file called `config.toml` using the `example_config.toml` file as a template.
+
 
 ## Acknowledgements
 
